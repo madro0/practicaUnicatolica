@@ -1,0 +1,30 @@
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="btn-group">
+            <div class="btn btn-primary"> Previous
+            </div>
+            <div class="btn btn-outline-secondary"> today
+            </div>
+            <div class="btn btn-primary"> Next
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-group">
+            <div class="btn btn-primary"> Month</div>
+            <div class="btn btn-primary">week</div>
+            <div class="btn btn-primary">Day</div>
+        </div>
+    </div>
+</div>
+<br>
+<div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"></mwl-calendar-day-view>
+</div>
