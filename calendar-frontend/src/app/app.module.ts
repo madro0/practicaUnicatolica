@@ -17,6 +17,13 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//import serives
+import {ApiService} from './services/api.service';
+//import http
+import {HttpClientModule} from '@angular/common/http';
+
 
 
 
@@ -35,9 +42,12 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     FormsModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-   
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    ApiService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

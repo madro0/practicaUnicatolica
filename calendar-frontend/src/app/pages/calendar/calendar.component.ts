@@ -1,3 +1,6 @@
+import { ApiService } from './../../services/api.service';
+
+
 import { 
   Component, 
   ChangeDetectionStrategy,
@@ -47,10 +50,15 @@ export class CalendarComponent implements OnInit {
 
   view: CalendarView = CalendarView.Month;
 
+  //creamos el arry de tipo 'CalendarView' para poderlo llenar con los datos traidos del api
+  events: CalendarEvent[] = [];
+  
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
 
+
+  
   actions:CalendarEventAction[] =[
     {
       label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -68,49 +76,13 @@ export class CalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  
 
   activeDayIsOpen: boolean = true;
-  constructor() { }
+  constructor(private api: ApiService) {
+    //aqui llamo los eventos para que se cargen. 
+    this.loadEvents();
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -178,6 +150,38 @@ export class CalendarComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
   ngOnInit() {
+    //this.prueba();
   }
+
+  loadEvents(){
+    this.api.getAllEventos().subscribe((daticos: any)=>{
+      //console.log(daticos);
+      for(var i = 0; i<daticos.length; i++){
+        this.events.push(
+          {
+            id : daticos[i].id, 
+            title: daticos[i].nombre,
+            start: startOfDay(new Date(daticos[i].fecha_inicio.date)),
+            end: endOfDay(new Date(daticos[i].fecha_fin.date)),
+            color: colors.black,
+            actions: this.actions,
+            allDay: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+            draggable: true,
+                }
+        );
+      }
+
+      for(var i = 0; i<this.events.length; i ++){
+        console.log(this.events[i]);
+    }
+    });
+    
+  }
+
+  
 
 }
