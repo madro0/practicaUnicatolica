@@ -40,23 +40,82 @@
 
 <!--modal content-->
 <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-        <h5 class="modal-title">Event action occurred</h5>
-        <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="modal-header ">
+        <!--carrucel -->
+        <ngb-carousel *ngIf="images">
+            <!--de hecho aqui puede ir un ngfor, para cada una de de la lista de imagenes.-->
+            <ng-template ngbSlide>
+                <div class="picsum-img-wrapper ">
+                    <img [src]="images[0]" class="img-fluid size-img-carrucels" alt="Eniun">
+                </div>
+                <div class="carousel-caption">
+                    <!--titulo dento del carrucel.-->
+                    <h5>{{ modalData?.event.title }}</h5>
+                </div>
+            </ng-template>
+
+        </ngb-carousel>
+
     </div>
-    <div class="modal-body">
-        <div>
-            Action:
-            <pre>{{ modalData?.action }}</pre>
+    <div class="modal-body centerd-div">
+
+        <!--Par de labels de fecha inicio y alado fecha fin. -->
+        <div class="row">
+            <div class="col form-group">
+                <label for="grupfechaInicial ">Fecha Inicial</label>
+
+                <div class="input-group">
+                    <!--uso un boton como label para mostrar la fecha. con el fin de aprobechar el focus. -->
+                    <button #dpToDate class="form-control" readonly type="text" (click)="onClickedOpen()"> {{ modalData?.event.start| date }}</button>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="onClickedOpen()" type="button"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col form-group">
+                <label for="grupfechaInicial">Fecha final</label>
+
+                <div class="input-group">
+                    <button #dpToDate class="form-control" readonly type="text" (click)="onClickedOpen()"> {{ modalData?.event.end| date }}</button>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="onClickedOpen()" type="button"></button>
+                    </div>
+                </div>
+            </div>
         </div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
+        <!--miniCalendar-->
+
+        <div *ngIf="disabled">
+            <ngb-datepicker #dp [displayMonths]="1" [dayTemplate]="t" outsideDays="hidden" (clickOutside)="onClickedOutside()">
+            </ngb-datepicker>
+
+            <ng-template #t let-date let-focused="focused">
+                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+            {{ date.day }}
+          </span>
+            </ng-template>
+        </div>
+        <!--end Minicalendar-->
+        <!--inicio de descripcion mediante acordion.-->
+        <ngb-accordion #acc="ngbAccordion">
+            <ngb-panel>
+                <ng-template ngbPanelHeader>
+                    <button ngbPanelToggle class="btn  btn-outline-primary btn-lg btn-block">Descripcion del evento.</button>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    {{this.descripcion}}
+                </ng-template>
+
+            </ngb-panel>
+
+        </ngb-accordion>
+        <!--end descripcion-->
+
+
+
     </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="close()">
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-secondary " (click)="close() ">
         OK
       </button>
     </div>

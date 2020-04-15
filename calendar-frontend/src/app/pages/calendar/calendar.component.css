@@ -1,0 +1,40 @@
+/*los siguientes estilos corresponden al minicalendario,
+para que se pueden marcar los dias en un laxo de tiempo*/
+
+.form-group.hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}
+
+.custom-day.focused {
+    background-color: #e6e6e6;
+}
+
+.custom-day.range,
+.custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+}
+
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+}
+
+.size-img-carrucel {
+    height: 200px;
+    width: 466px;
+}
+
+.centerd-div {
+    text-align: center;
+}

@@ -19,4 +19,7 @@ export class ApiService{
      getAllEventos(){
          return this.getQuery ('api/events/getall');
      }
+     getDesciption(id: string){
+         return this.getQuery (`api/events/findbyid/${id}`)
+     }
 }
