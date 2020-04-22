@@ -1,4 +1,6 @@
 
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID} from '@angular/core';
 
@@ -18,20 +20,30 @@ import { CommonModule } from '@angular/common';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { registerLocaleData } from '@angular/common';
 
+
 //import localize para cambiar el idioma a español.
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs);
 
 //import serives
-import {ApiService} from './services/api.service';
+import { ApiService} from './services/api.service';
 //import http
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
+import { EventsComponent } from './pages/events/events.component';
+import { EventComponent } from './pages/event/event.component';
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
-    LoginComponent
+    LoginComponent,
+    EventsComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,

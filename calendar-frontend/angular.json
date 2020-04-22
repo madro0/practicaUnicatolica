@@ -6,7 +6,7 @@
         "calendar-frontend": {
             "projectType": "application",
             "schematics": {},
-            "root": "",
+            "root": "src",
             "sourceRoot": "src",
             "prefix": "app",
             "architect": {
@@ -25,6 +25,8 @@
                         ],
                         "styles": [
 
+                            "node_modules/@fortawesome/fontawesome-free/css/all.css",
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "node_modules/angular-calendar/css/angular-calendar.css",
                             "src/styles.css",
                             "node_modules/bootstrap/dist/css/bootstrap.min.css"

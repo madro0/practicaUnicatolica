@@ -1,3 +1,5 @@
+import { EventComponent } from './pages/event/event.component';
+import { EventsComponent } from './pages/events/events.component';
 
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
@@ -7,6 +9,8 @@ import { LoginComponent } from './pages/login/login.component';
 const routes: Routes= [
     {path: 'calendar', component: CalendarComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'events', component: EventsComponent},
+    {path: 'event', component: EventComponent},
     {path: '**', redirectTo: 'calendar'}
 ];
 
