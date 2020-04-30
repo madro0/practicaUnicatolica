@@ -26,15 +26,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td class="text-sm-center">primer evento</td>
-            <td>1 de abril 2020</td>
-            <td>1 de abril 2020</td>
+        <tr *ngFor="let eve of events; let i= index">
+            <th scope="row">{{i +1}} {{eve.id}}</th>
+            <td class="text-sm-center">{{eve.nombre}}</td>
+            <td>{{eve.fecha_inicio.year }} / {{eve.fecha_inicio.month }} /{{eve.fecha_inicio.day }}</td>
+            <td>{{eve.fecha_fin.year }} / {{eve.fecha_fin.month }} /{{eve.fecha_fin.day }}</td>
             <td>
+                <button class="btn btn-info mr-1">
+                    <i class="fa fa-edit" (click)="openEditLg(content, eve.id)" ></i>
+                </button>
+                <button class="btn btn-danger mr-1">
+                    <i class="fa fa-times-circle" (click)="deleteEvent(eve, i)"></i>
+                </button>
 
-                <i class="fa fa-edit"></i>
-                <i class="fa fa-times-circle"></i>
+
             </td>
         </tr>
     </tbody>
@@ -61,8 +66,11 @@
 <ng-template #content let-modal>
     <div class="modal-header  justify-content-between">
 
-        <div class="col ">
+        <div class="col " *ngIf="this.readAndEdit">
             <h1 class="">Nuevo evento</h1>
+        </div>
+        <div class="col " *ngIf="!this.readAndEdit">
+            <h1 class="">Editar evento</h1>
         </div>
 
         <div class="col text-right">
@@ -79,10 +87,12 @@
     </div>
     <div class="modal-body ">
         <!--aqui es donde se abre el eventComponent, a de mas se le envia el id-->
-        <app-event [idHijo]="idPadre "></app-event>
+        <app-event [iddHijo]="this.idEventP"></app-event>
     </div>
-    <div class="modal-footer ">
+    <div class=" modal-footer ">
 
-        <button type="button " class="btn btn-light " (click)="modal.close( 'Close click') ">Close</button>
+        <button type="button " class="btn btn-light " (Click)="this.getEvents()" (click)="modal.close( 'Close click')  ">Close</button>
+
+        <button type="button " class="btn btn-light " (Click)="otro()">actualizar</button>
     </div>
 </ng-template>

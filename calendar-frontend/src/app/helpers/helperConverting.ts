@@ -12,4 +12,10 @@ export class HelperConvert{
         dateModel.day = date.getDate();
         return dateModel;
     }
+
+    stringToDateConvert(arrayDate :DateModel): Date{
+        let stringDate = `${arrayDate.year}-${arrayDate.month}-${Number(arrayDate.day)+1}`;
+        let date= new Date(stringDate);
+        return date;
+    }
 }

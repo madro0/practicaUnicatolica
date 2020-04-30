@@ -12,11 +12,11 @@
 
                 <div class="form-group col-md6  ">
                     <h3 class="text-center">
-                        Fecha inicial.
+                        Fecha inicial.{{iddHijo}}
                     </h3>
 
                     <div class="input-group">
-                        <input class="form-control" placeholder="19-04-2020" name="dp" [(ngModel)]="event.fecha_inicio" name="fechaInicio" ngbDatepicker #d1="ngbDatepicker">
+                        <input class="form-control" type="text" ngbDatepicker #d1="ngbDatepicker" name="fechaInicio" [(ngModel)]="event.fecha_inicio">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar " (click)="d1.toggle()" type="button">
                             <i class="fa fa-clock"></i>
@@ -27,7 +27,7 @@
                 <div class="form-group col-md6 ">
                     <h3 class="text-center">Fecha final</h3>
                     <div class="input-group">
-                        <input class="form-control" placeholder="19-04-2020" name="dp" [(ngModel)]="event.fecha_fin" name="fechaFin" ngbDatepicker #d2="ngbDatepicker">
+                        <input class="form-control" placeholder="19-04-2020" ngbDatepicker #d2="ngbDatepicker" name="fechaFin" [(ngModel)]="event.fecha_fin">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar " (click)="d2.toggle()" type="button">
                             <i class="fa fa-clock"></i>

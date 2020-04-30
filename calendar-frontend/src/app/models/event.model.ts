@@ -10,9 +10,8 @@ export class EventModel{
     fecha_inicio: DateModel;
     fecha_fin: DateModel;
     fechaCreacion: DateModel;
-    fechaModificacion: DateModel;
-    
-    
+    fechaModificacion: DateModel;  
+    f:Date;  
     constructor(){
         var currentTime=new Date
         this.archivos="";
