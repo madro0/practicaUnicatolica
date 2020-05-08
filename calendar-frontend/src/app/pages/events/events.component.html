@@ -1,7 +1,13 @@
 <h1>Listado de eventos</h1>
 <div class="row">
+    <div class="col rext-left">
+        <button class="btn btn-danger" (click)="salir()">
+            <i class="fa fa-sign-out"></i>
+                salir
+        </button>
+    </div>
     <div class="col text-right">
-        <button class="btn btn-primary" (click)="openLg(content)">
+        <button class="btn btn-primary" (click)="openModal(null)">
             <i class="fa fa-plus-circle"></i>
             Nuevo evento
         </button>
@@ -33,7 +39,7 @@
             <td>{{eve.fecha_fin.year }} / {{eve.fecha_fin.month }} /{{eve.fecha_fin.day }}</td>
             <td>
                 <button class="btn btn-info mr-1">
-                    <i class="fa fa-edit" (click)="openEditLg(content, eve.id)" ></i>
+                    <i class="fa fa-edit" (click)="openModal(eve.id)" ></i>
                 </button>
                 <button class="btn btn-danger mr-1">
                     <i class="fa fa-times-circle" (click)="deleteEvent(eve, i)"></i>
@@ -60,7 +66,7 @@
     </p>
 </div>
 
-<button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Large modal</button>
+<button class="btn btn-outline-primary mb-2 mr-2" (click)="openModal(null)">Large modal</button>
 <!--ventana modal -->
 
 <ng-template #content let-modal>
@@ -90,9 +96,7 @@
         <app-event [iddHijo]="this.idEventP"></app-event>
     </div>
     <div class=" modal-footer ">
-
-        <button type="button " class="btn btn-light " (Click)="this.getEvents()" (click)="modal.close( 'Close click')  ">Close</button>
-
-        <button type="button " class="btn btn-light " (Click)="otro()">actualizar</button>
+        <button type="button" class="btn btn-light" (click)="modal.close( 'Close click')">Close</button>
+        <button type="button" class="btn btn-light" (Click)="closeModal()">actualizar</button>
     </div>
 </ng-template>

@@ -1,15 +1,19 @@
-import { EventModel } from './../models/event.model';
+
+
 import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-
+import { EventModel } from './../models/event.model';
 import {map} from 'rxjs/operators';
 
 const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
+      //,'Authorization': "Bearer " + this.currentUser.token
     })
 };
+
+        
 
 
 @Injectable ({
@@ -23,7 +27,7 @@ export class ApiService{
      getQuery( query: string){
         const url = `http://127.0.0.1:8000/${query}`;
         
-        return this.http.get(url);
+        return  this.http.get(url);
      }
      getAllEventos(){
          return this.getQuery ('api/events/getall');
@@ -73,5 +77,5 @@ export class ApiService{
 
     deleteEventById(id:number){
         return this.http.delete(`http://127.0.0.1:8000/api/events/delete/${id}`);
-    }
+    } 
 }

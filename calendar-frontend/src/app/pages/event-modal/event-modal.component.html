@@ -1,0 +1,92 @@
+<div class="modal-header">
+    <h1 class="modal-title" id="modal-title" *ngIf="createOrRead">Nuevo evento</h1>
+    <h1 class="modal-title" id="modal-title" *ngIf="!createOrRead">Editar evento</h1>
+
+    <button type="button" class="close" aria-describedby="modal-title" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form (ngSubmit)="guardar( f )" #f="ngForm">
+    <div class="modal-body">
+        <div class="col">
+
+            <!--parte titulo-->
+            <div>
+                <input class="form-control form-control-lg " type="text" placeholder="Añadir un título" [(ngModel)]="event.nombre" name="titulo" required>
+            </div>
+
+
+            <!--parte fechas-->
+            <div class="row justify-content-around">
+
+                <div class="form-group col-md6  ">
+                    <h3 class="text-center">
+                        Fecha inicial.{{iddHijo}}
+                    </h3>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text" ngbDatepicker #d1="ngbDatepicker" name="fechaInicio" [(ngModel)]="event.fecha_inicio">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar " (click)="d1.toggle()" type="button">
+                            <i class="fa fa-clock"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md6 ">
+                    <h3 class="text-center">Fecha final</h3>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="19-04-2020" ngbDatepicker #d2="ngbDatepicker" name="fechaFin" [(ngModel)]="event.fecha_fin">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar " (click)="d2.toggle()" type="button">
+                            <i class="fa fa-clock"></i>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ngb-tabset #tabsetuno="ngbTabset">
+                <ngb-tab id="tab1" title="Descripcion ">
+                    <ng-template ngbTabContent>
+                        <textarea class="form-control" rows="3" placeholder="Añade una descripción..." [(ngModel)]="event.descripcion" name="descripcion" required></textarea>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab id="tab2 " title="Imagenes ">
+                    <ng-template ngbTabContent>
+
+                        <ngb-toast *ngIf="show " header="Click my close icon → " [autohide]="false " (hide)="closeImg()">
+                            <span class="btn btn-primary btn-file "> <input type="file ">
+                            subir archivo</span>
+                        </ngb-toast>
+                        <p *ngIf="!show ">I'll be back!</p>
+                    </ng-template>
+
+                </ngb-tab>
+            </ngb-tabset>
+
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <div class="col text-left ">
+            <div>
+                <h6 style="display:inline; ">Creado:</h6>
+                <h6 style="display:inline; "> 20 de febrero</h6>
+            </div>
+            <div>
+                <h6 style="display:inline; ">Actualizado:</h6>
+                <h6 style="display:inline; "> 20 de febrero</h6>
+            </div>
+        </div>
+        <div class="text-right">
+            <button type="submit " class="btn btn-primary ">
+                <i class="fa fa-save "></i>
+                Guardar
+            </button>
+            <button type="button " class="btn btn-outline-secondary " (click)="close() ">
+                Cancel
+            </button>
+        </div>
+    </div>
+</form>

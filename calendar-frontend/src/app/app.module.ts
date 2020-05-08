@@ -1,6 +1,4 @@
 
-
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID} from '@angular/core';
 
@@ -11,6 +9,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 //Importaciones hechas a mano
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
@@ -19,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { registerLocaleData } from '@angular/common';
+
 
 
 //import localize para cambiar el idioma a español.
@@ -32,6 +32,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { EventsComponent } from './pages/events/events.component';
 import { EventComponent } from './pages/event/event.component';
+import { EventModalComponent } from './pages/event-modal/event-modal.component';
 
 
 
@@ -43,7 +44,8 @@ import { EventComponent } from './pages/event/event.component';
     CalendarComponent,
     LoginComponent,
     EventsComponent,
-    EventComponent
+    EventComponent,
+    EventModalComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,9 @@ import { EventComponent } from './pages/event/event.component';
     FormsModule,
     CommonModule,
     ClickOutsideModule
+  ],
+  entryComponents:[
+    EventComponent
   ],
   providers: [
     ApiService,
