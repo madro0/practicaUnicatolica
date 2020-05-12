@@ -1,3 +1,4 @@
+
 import { isEmpty } from 'rxjs/operators';
 import { EventModel } from './../../models/event.model';
 import { Component, OnInit, Input } from '@angular/core';
@@ -7,6 +8,7 @@ import { HelperConvert } from './../../helpers/helperConverting';
 //import NgbActiveModal para poder controlar 
 //la ventana modal de events donde contiene este componente.
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './../../services/auth.service';
 
 import Swal from 'sweetalert2'
 import { Observable } from 'rxjs';
@@ -34,7 +36,8 @@ closeImg() {
   setTimeout(() => this.show = true, 5000);
 }
 
-constructor(private apiService:ApiService, public activeModal: NgbActiveModal) { }
+constructor(private apiService:ApiService, public activeModal: NgbActiveModal, private auth:AuthService) { 
+}
   
   ngOnInit(): void {
 
@@ -46,15 +49,17 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal) {
         this.event= resp;
         this.event.fecha_inicio= this.helper.dateConvert(this.helper.stringToDateConvert(this.event.fecha_inicio));
         this.event.fecha_fin= this.helper.dateConvert(this.helper.stringToDateConvert(this.event.fecha_fin));
+      }, err=>{
+        if(err.error.message=="Expired JWT Token"){
+          console.log('saliendo...')
+          this.auth.logout();
+        }
       });
     }
   }
   guardar(form: NgForm){
     if(form.invalid ){
       console.log('formulario invalido');
-
-      
-
       return;
     }
     Swal.fire({
@@ -92,7 +97,14 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal) {
         text: mensaje,
         icon: 'success',
       })
+    }, 
+    err=>{
+      if(err.error.message=="Expired JWT Token"){
+          console.log('saliendo...')
+          this.auth.logout();
+      }
     });
+
     this.activeModal.close();
   }
 
@@ -100,4 +112,6 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal) {
   close(){
     this.activeModal.close();
   }
+
+  
 }

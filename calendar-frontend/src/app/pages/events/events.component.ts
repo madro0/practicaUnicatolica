@@ -34,14 +34,8 @@ export class EventsComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  openLg(content) {
-    this.readAndEdit=true;
-    this.idEventP=null;
-    this.modalService.open(content, { size: 'lg' });
-  }
-  closeModal() {
-    //this.activeModal.close();
-  }
+ 
+  
   openEditLg(content, id:number) {
     this.readAndEdit=false;
     this.idEventP= id;
@@ -51,6 +45,12 @@ export class EventsComponent implements OnInit {
     this.api.getAllEventosMod().subscribe(resp=> {
       //console.log(resp);
       this.events = resp;
+    }, err=>{
+      
+      if(err.error.message=="Expired JWT Token"){
+          console.log("saliendo...");
+          //this.salir();
+      }
     });
   }
   deleteEvent(event:EventModel, index){
@@ -65,21 +65,28 @@ export class EventsComponent implements OnInit {
         this.events.splice(index,1);
 
         //this.getEvents();
-        this.api.deleteEventById(event.id).subscribe();
+        this.api.deleteEventById(event.id).subscribe( 
+          
+        );
       }
     });
   }
   openModal(id: number){
-    const modalRef= this.modalService.open(EventModalComponent);
-    modalRef.componentInstance.iddHijo=id;
-    modalRef.result.then((restul) =>{
-      this.getEvents();
+    this.api.getAllEventosMod().subscribe(resp=> {
+      const modalRef= this.modalService.open(EventModalComponent);
+          modalRef.componentInstance.iddHijo=id;
+          modalRef.result.then((restul) =>{
+            this.getEvents();
+          });
     });
   }
 
   salir(){
     this.auth.logout();
     this.router.navigateByUrl('/login');
+    //console.log("entramos a salir");
   }
+
+
 
 }

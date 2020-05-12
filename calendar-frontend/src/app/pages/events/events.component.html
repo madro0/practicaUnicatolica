@@ -68,35 +68,3 @@
 
 <button class="btn btn-outline-primary mb-2 mr-2" (click)="openModal(null)">Large modal</button>
 <!--ventana modal -->
-
-<ng-template #content let-modal>
-    <div class="modal-header  justify-content-between">
-
-        <div class="col " *ngIf="this.readAndEdit">
-            <h1 class="">Nuevo evento</h1>
-        </div>
-        <div class="col " *ngIf="!this.readAndEdit">
-            <h1 class="">Editar evento</h1>
-        </div>
-
-        <div class="col text-right">
-            <div>
-                <h6 style="display:inline; ">Creado:</h6>
-                <h6 style="display:inline; "> 20 de febrero</h6>
-            </div>
-            <div>
-                <h6 style="display:inline; ">Actualizado:</h6>
-                <h6 style="display:inline; "> 20 de febrero</h6>
-            </div>
-        </div>
-
-    </div>
-    <div class="modal-body ">
-        <!--aqui es donde se abre el eventComponent, a de mas se le envia el id-->
-        <app-event [iddHijo]="this.idEventP"></app-event>
-    </div>
-    <div class=" modal-footer ">
-        <button type="button" class="btn btn-light" (click)="modal.close( 'Close click')">Close</button>
-        <button type="button" class="btn btn-light" (Click)="closeModal()">actualizar</button>
-    </div>
-</ng-template>
