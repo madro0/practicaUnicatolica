@@ -5,16 +5,19 @@ import { HelperConvert } from './../helpers/helperConverting';
 export class EventModel{
     id: number;
     nombre: string;
-    archivos:string;
+    archivos: Array<File>;
     descripcion: string;
     fecha_inicio: DateModel;
     fecha_fin: DateModel;
     fechaCreacion: DateModel;
-    fechaModificacion: DateModel;  
+    fechaModificacion: DateModel;
+    arvhivo: any;
+
+    //files:Array<File>;
     f:Date;  
     constructor(){
         var currentTime=new Date
-        this.archivos="";
+        this.archivos= null;
         var helper = new HelperConvert();
         this.fecha_inicio= helper.dateConvert(currentTime);
         this.fecha_fin= helper.dateConvert(currentTime);

@@ -54,9 +54,10 @@
                 <ngb-tab id="tab2 " title="Imagenes ">
                     <ng-template ngbTabContent>
 
-                        <ngb-toast *ngIf="show " header="Click my close icon → " [autohide]="false " (hide)="closeImg()">
-                            <span class="btn btn-primary btn-file "> <input type="file ">
-                            subir archivo</span>
+                        <!--class="btn btn-primary btn-file" -->
+                        <input type="file" (change)="handleFileInput($event.target.files)">
+                        <ngb-toast *ngIf=" show " header="Click my close icon → " [autohide]="false " (hide)="closeImg() ">
+
                         </ngb-toast>
                         <p *ngIf="!show ">I'll be back!</p>
                     </ng-template>
@@ -68,7 +69,7 @@
     </div>
 
 
-    <div class="modal-footer">
+    <div class="modal-footer ">
         <div class="col text-left ">
             <div>
                 <h6 style="display:inline; ">Creado:</h6>
@@ -79,7 +80,7 @@
                 <h6 style="display:inline; "> 20 de febrero</h6>
             </div>
         </div>
-        <div class="text-right">
+        <div class="text-right ">
             <button type="submit " class="btn btn-primary ">
                 <i class="fa fa-save "></i>
                 Guardar
@@ -89,4 +90,20 @@
             </button>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label">Seleccionar imagen</label>
+        <div class="col-md-8">
+            <input class="form-control" type="file" name="image" id="up" placeholder="Selecciona una imagen ..." (change)="subir($event)">
+        </div>
+    </div>
 </form>
+<div class="forms">
+    <label for="title">{{msn}}</label>
+    <input type="file" name="file" (change)="onUploadChange($event)" accept="image/*" *ngIf="!loader" />
+</div>
+
+
+
+<!--<div class="progress">
+<div id="upload-progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="whith:0%"></div>
+</div>-->
