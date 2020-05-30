@@ -19,3 +19,7 @@
     cursor: inherit;
     display: block;
 }
+
+.input-upload {
+    display: none;
+}

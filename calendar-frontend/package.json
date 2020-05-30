@@ -30,6 +30,7 @@
     "cli-color": "^2.0.0",
     "date-fns": "^2.10.0",
     "flatpickr": "^4.6.3",
+    "image-to-base64": "^2.1.0",
     "ng-click-outside": "^6.0.0",
     "rxjs": "~6.5.4",
     "sweetalert2": "^9.10.12",

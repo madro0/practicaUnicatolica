@@ -55,10 +55,31 @@
                     <ng-template ngbTabContent>
 
                         <!--class="btn btn-primary btn-file" -->
-                        <input type="file" (change)="handleFileInput($event.target.files)">
-                        <ngb-toast *ngIf=" show " header="Click my close icon → " [autohide]="false " (hide)="closeImg() ">
 
-                        </ngb-toast>
+                        <label for="title">{{msn}}</label>
+
+                        <div class="row justify-center">
+
+                            <div class="col-sm-6" *ngIf="show2">
+                                <ngb-toast *ngIf=" show " header="{{this.event.archivos.fileName}}" [autohide]="false " (hide)="closeImg() " class="card " style="width: 13rem; height: 10rem; ">
+                                    <img src="data:image/{{this.event.archivos.ext}};base64,{{this.event.archivos.base64}}" alt=" " class="img-fluid card-img-top ">
+                                    <div class="card-body ">
+                                        <h5 class="card-title "></h5>
+                                    </div>
+                                </ngb-toast>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <ngb-toast class="card " style="width: 13rem; height: 10rem; position:relative; ">
+                                    <div style="position:absolute; bottom:20%; ">
+                                        <label class="btn btn-primary btn-lg btn-block " *ngIf="!loader">
+                                            SUBIR IMAGEN.
+                                            <input type="file" name="file" (change)="uploadImg($event)" class="input-upload" accept="image/*"/>
+                                        </label>
+                                    </div>
+                                </ngb-toast>
+                            </div>
+                        </div>
                         <p *ngIf="!show ">I'll be back!</p>
                     </ng-template>
 
@@ -90,20 +111,21 @@
             </button>
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-md-4 col-form-label">Seleccionar imagen</label>
-        <div class="col-md-8">
-            <input class="form-control" type="file" name="image" id="up" placeholder="Selecciona una imagen ..." (change)="subir($event)">
-        </div>
-    </div>
+    <!--
+    <div class="form-group row ">
+        <label class="col-md-4 col-form-label ">Seleccionar imagen</label>
+                                <div class="col-md-8 ">
+                                    <input class="form-control " type="file " name="image " id="up " placeholder="Selecciona una imagen ... " (change)="subir($event) ">
+                                </div>
+                            </div>-->
+
 </form>
-<div class="forms">
-    <label for="title">{{msn}}</label>
-    <input type="file" name="file" (change)="onUploadChange($event)" accept="image/*" *ngIf="!loader" />
+<div class="forms ">
+
 </div>
 
 
 
-<!--<div class="progress">
-<div id="upload-progress-bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="whith:0%"></div>
+<!--<div class="progress ">
+<div id="upload-progress-bar " class="progress-bar progress-bar-success " role="progressbar " aria-valuenow="0 " aria-valuemin="0 " aria-valuemax="100 " style="whith:0% "></div>
 </div>-->

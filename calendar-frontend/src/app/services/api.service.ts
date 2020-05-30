@@ -40,11 +40,11 @@ export class ApiService{
         return  this.http.get(url);
      }
      getAllEventos(){
-         return this.http.get(`${rootUrl}getall`);
+        return this.http.get(`${rootUrl}getall`);
      }
      
      getDesciption(id: string){
-         return this.http.get (`${rootUrl}findbyid/${id}`);
+        return this.http.get (`${rootUrl}findbyid/${id}`);
      }
      //Crear un nuevo evento
 

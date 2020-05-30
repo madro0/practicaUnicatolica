@@ -38,6 +38,8 @@ import { EventModalComponent } from './pages/event-modal/event-modal.component';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

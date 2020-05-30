@@ -1,4 +1,7 @@
+import { FileModel } from 'src/app/models/file.model';
 import { DateModel } from '../models/date.model';
+
+
 export class HelperConvert{
     //dateModel: DateModel = new DateModel();
     constructor(){}
@@ -12,10 +15,11 @@ export class HelperConvert{
         dateModel.day = date.getDate();
         return dateModel;
     }
-
     stringToDateConvert(arrayDate :DateModel): Date{
         let stringDate = `${arrayDate.year}-${arrayDate.month}-${Number(arrayDate.day)+1}`;
         let date= new Date(stringDate);
         return date;
     }
+    
+   
 }

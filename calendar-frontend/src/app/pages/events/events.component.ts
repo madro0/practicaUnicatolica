@@ -63,7 +63,6 @@ export class EventsComponent implements OnInit {
     }).then(resp=>{
       if(resp.value){
         this.events.splice(index,1);
-
         //this.getEvents();
         this.api.deleteEventById(event.id).subscribe( 
           
