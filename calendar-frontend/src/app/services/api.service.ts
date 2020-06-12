@@ -34,23 +34,24 @@ export class ApiService{
       }
 
     //centralizar los query http
-     getQueryGet( query: string){
+    getQueryGet( query: string){
         const url = `http://127.0.0.1:8000/${query}`;
         
         return  this.http.get(url);
      }
-     getAllEventos(){
+    getAllEventos(){
         return this.http.get(`${rootUrl}getall`);
      }
      
-     getDesciption(id: string){
+    getDesciption(id: string){
         return this.http.get (`${rootUrl}findbyid/${id}`);
-     }
+    }
      //Crear un nuevo evento
 
-     crearEvento(event: EventModel){
+    crearEvento(event: EventModel){
 
         //formData.append("fileData", event.archivos);
+        console.log(event.archivos.base64);
         return this.http.post(`${rootUrl}security/add`,event,{ headers: this.authHeader })
         .pipe(
             map( (resp:any)=>{
@@ -60,7 +61,7 @@ export class ApiService{
         );
      }
      
-     subirFoto(datos:any){         
+    subirFoto(datos:any){         
         return this.http.post(`${rootUrl}security/add`, datos, { headers: this.authHeader });
      }
 

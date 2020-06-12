@@ -13,13 +13,13 @@ export class EventModel{
     fecha_fin: DateModel;
     fechaCreacion: DateModel;
     fechaModificacion: DateModel;
-    archivo: string;
+    //archivo: string;
 
     //files:Array<File>;
     f:Date;  
     constructor(){
         var currentTime=new Date;
-        
+        this.archivos= new FileModel();
         var helper = new HelperConvert();
         this.fecha_inicio= helper.dateConvert(currentTime);
         this.fecha_fin= helper.dateConvert(currentTime);

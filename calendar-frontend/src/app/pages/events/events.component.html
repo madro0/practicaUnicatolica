@@ -21,7 +21,7 @@
     </div>
 </form>
 
-<table class="table">
+<table *ngIf="cargando && events.length >0" class="table  animated fadeIn faster">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -33,7 +33,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let eve of events; let i= index">
-            <th scope="row">{{i +1}} {{eve.id}}</th>
+            <th scope="row">{{i +1}} </th>
             <td class="text-sm-center">{{eve.nombre}}</td>
             <td>{{eve.fecha_inicio.year }} / {{eve.fecha_inicio.month }} /{{eve.fecha_inicio.day }}</td>
             <td>{{eve.fecha_fin.year }} / {{eve.fecha_fin.month }} /{{eve.fecha_fin.day }}</td>
@@ -50,7 +50,7 @@
         </tr>
     </tbody>
 </table>
-<div class="alert alert-info text-center mt-3">
+<div *ngIf="!cargando" class="alert alert-info text-center mt-3  animate fadeIn faster">
     <h4 class="alert-heading">Cargando</h4>
     <p>
         <i class="fa fa-sync-alt fa-spin fa-2x"></i>
@@ -59,7 +59,7 @@
         Espere por favor...
     </p>
 </div>
-<div class="alert alert-warning text-center mt-3">
+<div *ngIf="cargando && events.length ===0" class="alert alert-warning text-center mt-3 animate fadeIn faster">
     <h4 class="alert-heading">No hay registros</h4>
     <p>
         <i class="fa fa-exclamation fa-2x"></i>

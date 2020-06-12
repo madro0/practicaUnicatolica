@@ -16,7 +16,7 @@ export class HelperConvert{
         return dateModel;
     }
     stringToDateConvert(arrayDate :DateModel): Date{
-        let stringDate = `${arrayDate.year}-${arrayDate.month}-${Number(arrayDate.day)+1}`;
+        let stringDate = `${arrayDate.year}-${arrayDate.month}-${Number(arrayDate.day)}`;
         let date= new Date(stringDate);
         return date;
     }

@@ -21,7 +21,7 @@
 
                 <div class="form-group col-md6  ">
                     <h3 class="text-center">
-                        Fecha inicial.{{iddHijo}}
+                        Fecha inicial.
                     </h3>
 
                     <div class="input-group">
@@ -62,7 +62,7 @@
 
                             <div class="col-sm-6" *ngIf="show2">
                                 <ngb-toast *ngIf=" show " header="{{this.event.archivos.fileName}}" [autohide]="false " (hide)="closeImg() " class="card " style="width: 13rem; height: 10rem; ">
-                                    <img src="data:image/{{this.event.archivos.ext}};base64,{{this.event.archivos.base64}}" alt=" " class="img-fluid card-img-top ">
+                                    <img src="{{this.src}}" alt=" " class="img-fluid card-img-top ">
                                     <div class="card-body ">
                                         <h5 class="card-title "></h5>
                                     </div>

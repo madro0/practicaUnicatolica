@@ -25,7 +25,7 @@ export class EventsComponent implements OnInit {
   events : EventModel []=[];
   idEventP:number;
   readAndEdit:boolean=true;
- 
+  cargando =false;
 
   constructor(private modalService: NgbModal, private api: ApiService, private auth:AuthService, private router:Router) {
     this.getEvents();
@@ -44,7 +44,9 @@ export class EventsComponent implements OnInit {
   getEvents(){
     this.api.getAllEventosMod().subscribe(resp=> {
       //console.log(resp);
+      
       this.events = resp;
+      this.cargando=true;
     }, err=>{
       
       if(err.error.message=="Expired JWT Token"){

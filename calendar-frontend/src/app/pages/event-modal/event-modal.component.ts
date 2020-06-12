@@ -56,6 +56,8 @@ public files:Array<File>
 base64textString2 = [];
 subidoOError= false;
 image;
+//
+src;
 
 constructor(private apiService:ApiService, public activeModal: NgbActiveModal, private auth:AuthService) { 
   
@@ -71,8 +73,10 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal, p
         this.event= resp;
         this.event.fecha_inicio= this.helper.dateConvert(this.helper.stringToDateConvert(this.event.fecha_inicio));
         this.event.fecha_fin= this.helper.dateConvert(this.helper.stringToDateConvert(this.event.fecha_fin));
-        if(this.event.archivos.base64!='' && this.event.archivos.ext!='' && this.event.archivos.fileName!=''){
-          this.show2=true;
+        if( this.event.archivos.ext!='' || this.event.archivos.fileName!=''){
+            this.show2=true;
+            this.src= this.renderImage(this.event.archivos);
+            
         }else{
           this.show2=false;
         }
@@ -120,8 +124,6 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal, p
       mensaje='Se actualizó correctamente';
     }
     peticion.subscribe(res =>{
-
-      //this.apiService.uploadImage(this.fileUpload, res.id );
       console.log(res);
       Swal.fire({
         title: this.event.nombre,
@@ -182,12 +184,24 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal, p
       this.show2=true;
       var fileModel = new FileModel;
 
-      fileModel.fileName=file.name;
-      fileModel.ext= file.type.replace('image/','');
+      
+     
+      var auxext = file.type.replace('image/','');
+      if(auxext=='jpeg'){
+        fileModel.ext='jpg';
+      }else{
+        fileModel.ext=auxext;
+      }
       fileModel.base64= myReader.result as string;
-      fileModel.base64= fileModel.base64.replace(`data:image/${fileModel.ext};base64,`,'');
+      fileModel.base64= fileModel.base64.replace(`data:image/${auxext};base64,`,'');
+      fileModel.fileName=file.name;
+      fileModel.fileName= fileModel.fileName.replace(`.${fileModel.ext}`,'');
+      
       
       this.event.archivos = fileModel
+    
+     
+      this.src= `data:image/${auxext};base64,${this.event.archivos.base64}` 
 
     }
     myReader.readAsDataURL(file);
@@ -197,12 +211,20 @@ constructor(private apiService:ApiService, public activeModal: NgbActiveModal, p
     //this.show = false;
     this.show2=false;
     var fileModel = new FileModel();
+    fileModel.id='';
     fileModel.base64='';
     fileModel.ext='';
     fileModel.fileName='';
     this.event.archivos = fileModel;
     //setTimeout(() => this.show = true, 5000);
   }
+
+  renderImage(image: FileModel):string{
+    //console.log( btoa(`http://localhost:8000/uploads/eventsImg/${image.id}name${image.fileName}.${image.ext}`));
+    //reader.readAsBinaryString(file);
+    return `http://localhost:8000/uploads/eventsImg/${image.id}name${image.fileName}.${image.ext}`;
+  }
+ 
 
   
   

@@ -1,35 +1,11 @@
-
 import { ApiService } from './../../services/api.service';
-
-
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
-
-
-import { 
-  Component, 
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef,
-  OnInit } from '@angular/core';
-  import {
-    startOfDay,
-    endOfDay,
-    subDays,
-    addDays,
-    endOfMonth,
-    isSameDay,
-    isSameMonth,
-    addHours,
-  } from 'date-fns';
-  import { Subject } from 'rxjs';
-  import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-  import {
-    CalendarEvent,
-    CalendarEventAction,
-    CalendarEventTimesChangedEvent,
-    CalendarView,
-  } from 'angular-calendar';
+import { Component,ChangeDetectionStrategy,ViewChild,TemplateRef,OnInit } from '@angular/core';
+import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours,} from 'date-fns';
+import { Subject } from 'rxjs';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,} from 'angular-calendar';
   
   const colors: any = {
     red: {
@@ -52,30 +28,24 @@ import {
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
+
+  
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   view: CalendarView = CalendarView.Month;
-
   //creamos el arry de tipo 'CalendarView' para poderlo llenar con los datos traidos del api
   //esta vueltaaa
-
   disabled= false;
   aux=true;
-  
   hoveredDate: NgbDate | null = null;
-
   fromDate: NgbDate=null;
   toDate: NgbDate | null = null;
   descripcion :string;
- 
-
-
+  images=[944, 1011, 984].map((n) =>  `https://picsum.photos/id/${n}/900/500`);
   
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
-
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-
+  
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -141,10 +111,16 @@ export class CalendarComponent implements OnInit {
   ];
   
   activeDayIsOpen: boolean = true;
+
   constructor(private api: ApiService, private modal: NgbModal,   calendar: NgbCalendar) {
     //aqui llamo los eventos para que se cargen.  
+    //this.loadEvents();
+  }
+
+  ngOnInit(): void{
     this.loadEvents();
   }
+
 
   //esta vuelta es para hacer lo del calendario
   isHovered(date: NgbDate) {
@@ -167,6 +143,7 @@ export class CalendarComponent implements OnInit {
     }
     this.aux=true;
   }
+
   onClickedOpen() {
     //abrir
     this.aux=false;
@@ -208,13 +185,17 @@ export class CalendarComponent implements OnInit {
     var dateFin: Date = event.end;
 
     this.descripcion="Este evento no tiene descripcion."
+    this.images=[944, 1011, 984].map((n) =>  `https://picsum.photos/id/${n}/900/500`);
       if(event.id!= null){
         this.api.getDesciption(event.id.toString()).subscribe((daticos: any)=>{
           if( daticos!= null){
            this.descripcion= daticos.descripcion;
+           if(daticos.archivos!=''){
+            this.images=[944, 1011, 984].map((n) =>  `http://localhost:8000/uploads/eventsImg/${daticos.archivos}`);
+           }
           }
         });
-      }
+    }
     this.fromDate = new NgbDate(dateIn.getFullYear(), dateIn.getMonth()+1 , dateIn.getDay());
     this.toDate = new NgbDate(dateFin.getFullYear(), dateFin.getMonth()+1, dateFin.getDay());
     //new NgbDate( dateFin.getFullYear(), dateFin.getMonth() , 27);
@@ -225,7 +206,6 @@ export class CalendarComponent implements OnInit {
     this.modal.open(this.modalContent, { scrollable: true } );
   }
   
-
   addEvent(): void {
     this.events = [
       ...this.events,
@@ -250,14 +230,11 @@ export class CalendarComponent implements OnInit {
   setView(view: CalendarView) {
     this.view = view;
   }
-
+  
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
-  ngOnInit() {
-    //this.prueba();
-  }
-
+  
   loadEvents(){
     this.api.getAllEventos().subscribe((daticos: any)=>{
       //console.log(daticos);
@@ -276,17 +253,12 @@ export class CalendarComponent implements OnInit {
               afterEnd: true,
             },
             draggable: true,
-                }
+          }
         );
       }
-
       for(var i = 0; i<this.events.length; i ++){
         console.log(this.events[i]);
     }
-    });
-    
+    }); 
   }
-
-  
-
 }
